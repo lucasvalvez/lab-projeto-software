@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-JwtRestApiApplication<Exemplo_Arquitetura_Completa>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.JWT_RestAPI.application.JwtRestApiApplication",
+            "projectName": "Exemplo_Arquitetura_Completa",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
