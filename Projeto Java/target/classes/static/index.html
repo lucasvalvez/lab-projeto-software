@@ -6,6 +6,8 @@
     <title>Sistema de Matrícula</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="icon" href="./images/puc.png" type="image/x-icon">
+    <script src="./js/script.js" defer></script>
+
 </head>
 
 <body>
@@ -18,33 +20,26 @@
 
             <!-- Formulário de Login -->
             <div id="login" class="tabcontent">
-                <input placeholder="Email" type="email">
-                <input placeholder="Senha" type="password">
-                <label for="opcoes">Escolha uma opção:</label>
-                <select id="opcoes" name="opcoes">
-                    <option value="">Selecione uma opção</option>
-                    <option value="Aluno">Aluno</option>
-                    <option value="Professor">Professor</option>
-                    <option value="Secretaria">Secretaria</option>
-                </select>
-                <button>Entrar</button>
+                <input id="loginEmail" placeholder="Email" type="email">
+                <input id="loginPassword" placeholder="Senha" type="password">
+                <button onclick="handleLogin()">Entrar</button>
             </div>
 
             <!-- Formulário de Cadastro -->
             <div id="cadastro" class="tabcontent" style="display: none;">
-                <input placeholder="Nome Completo" type="text">
-                <input placeholder="Email" type="email">
-                <input placeholder="Senha" type="password">
-                <input placeholder="Confirme a Senha" type="password">
-                <label for="opcoes">Escolha uma opção:</label>
-                <select>
+                <input id="registerName" placeholder="Nome Completo" type="text">
+                <input id="registerEmail" placeholder="Email" type="email">
+                <input id="registerPassword" placeholder="Senha" type="password">
+                <input id="confirmPassword" placeholder="Confirme a Senha" type="password">
+                <select id="registerRole">
                     <option value="">Selecione uma opção</option>
-                    <option value="Aluno">Aluno</option>
-                    <option value="Professor">Professor</option>
-                    <option value="Secretaria">Secretaria</option>
+                    <option value="ALUNO">Aluno</option>
+                    <option value="PROFESSOR">Professor</option>
+                    <option value="SECRETARIA">Secretaria</option>
                 </select>
-                <button>Cadastrar</button>
+                <button onclick="handleRegister()">Cadastrar</button>
             </div>
+        </div>
         </div>
     </main>
 
@@ -59,6 +54,39 @@
             document.getElementById(tabName).style.display = "flex";
             event.currentTarget.classList.add("active");
         }
+
+        async function handleLogin() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (!email || !password) {
+                alert('Preencha todos os campos');
+                return;
+            }
+
+            await login(email, password);
+        }
+
+        async function handleRegister() {
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const role = document.getElementById('registerRole').value;
+
+            if (!name || !email || !password || !confirmPassword || !role) {
+                alert('Preencha todos os campos');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert('As senhas não coincidem');
+                return;
+            }
+
+            await register(name, email, password, role);
+        }
+    </script>
     </script>
 </body>
 </html>

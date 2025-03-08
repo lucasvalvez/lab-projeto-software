@@ -1,25 +1,77 @@
 package com.example.JWT_RestAPI.controller;
+
 import com.example.JWT_RestAPI.model.LoginRequest;
+import com.example.JWT_RestAPI.model.RegisterRequest;
+import com.example.JWT_RestAPI.model.Usuario;
 import com.example.JWT_RestAPI.service.AuthService;
+import com.example.JWT_RestAPI.service.UsuarioService;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:8080", "http://127.0.0.1:8083"})
 public class AuthController {
-    @Autowired
+        @Autowired
     private AuthService authService;
+    
+    @Autowired
+    private UsuarioService usuarioService;
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest request) {
-        //Aqui você pode autenticar o usuário (por exemplo, usando um banco de dados)
-        //Se a autenticação for bem-sucedida, gere um token JWT
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+        try {
+            Usuario usuario = usuarioService.findByEmail(request.getEmail());
+            
+            if (usuario == null) {
+                return ResponseEntity.status(401).body("Usuario nao encontrado");
+            }
+            
+            if (!authService.validatePassword(request.getPassword(), usuario.getSenha())) {
+                return ResponseEntity.status(401).body("Senha incorreta");
+            }
+            
+            String token = authService.generateToken(usuario.getEmail());
+            
+            Map<String, Object> response = new HashMap<>();
+            response.put("token", token);
+            response.put("role", usuario.getRole());
+            response.put("username", usuario.getNome());
+            
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "Authentication failed");
+            error.put("message", e.getMessage());
+            return ResponseEntity.status(500).body(error);
+        }
+    }
 
-        // String token = JwtUtil.generateToken(request.getUsername());
-        // Ao invés de chamarmos JwtUtil diretamente, criamos uma camada de serviço
-        String token = authService.generateToken(request.getUsername());
-        return token;
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+        try {
+            Usuario usuario = new Usuario();
+            usuario.setNome(request.getName());
+            usuario.setEmail(request.getEmail());
+            usuario.setSenha(request.getPassword());
+            usuario.setRole(request.getRole());
+            
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "User registered successfully");
+            usuarioService.save(usuario);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "Registration failed");
+            error.put("message", e.getMessage());
+            return ResponseEntity.badRequest().body(error);
+        }
     }
     // No login, capturamos o Username via corpo da requisição (LoginRequest Body)
     // Em seguida, geramos um token JWT

@@ -1,16 +1,96 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
-    <meta charset="utf-8" />
-    <title>Sistema de Matrícula</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="icon" href="../images/puc.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Usuário</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        #container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .grid {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: #ddd;
+            padding: 15px;
+            border-radius: 10px;
+            width: 150px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .card:hover {
+            background: #bbb;
+        }
+    </style>
 </head>
+
 <body>
-    <header>
-        <nav>
-            <a href="#">abcd</a>
-        </nav>
-    </header>
+    <div id="container">
+        <h1 id="titulo"></h1>
+        <div id="opcoes" class="grid"></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const role = urlParams.get('role')?.toLowerCase();
+
+            const titulo = document.getElementById("titulo");
+            const opcoes = document.getElementById("opcoes");
+            let funcionalidades = [];
+
+            switch (role) {
+                case "aluno":
+                    titulo.textContent = "Painel do Aluno";
+                    funcionalidades = ["Horários das disciplinas", "Gerenciar Matrícula", "Ver Notas"];
+                    break;
+                case "professor":
+                    titulo.textContent = "Painel do Professor";
+                    funcionalidades = ["Horários das disciplinas", "Chamada", "Lançamento de Notas"];
+                    break;
+                case "secretaria":
+                    titulo.textContent = "Painel da Secretaria";
+                    funcionalidades = ["Horários das disciplinas", "Gerenciar Matéria", "Financeiro"];
+                    break;
+                default:
+                    titulo.textContent = "Usuário não reconhecido";
+                    window.location.href = "/index.html";
+            }
+
+            funcionalidades.forEach(func => {
+                let div = document.createElement("div");
+                div.classList.add("card");
+                div.textContent = func;
+                opcoes.appendChild(div);
+            });
+        });
+    </script>
 </body>
+
+</html>

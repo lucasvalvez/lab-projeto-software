@@ -1,10 +1,14 @@
 package com.example.JWT_RestAPI.service;
 
 import com.example.JWT_RestAPI.security.JwtUtil;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
- * Serviço responsável por operações relacionadas à autenticação e geração de tokens JWT.
+ * Serviço responsável por operações relacionadas à autenticação e geração de
+ * tokens JWT.
  *
  * @author <a href="mailto:joaopauloaramuni@gmail.com">João Paulo Aramuni</a>
  * @version 1.0
@@ -12,6 +16,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AuthService {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /**
      * Gera um token JWT para o nome de usuário fornecido.
@@ -34,5 +40,8 @@ public class AuthService {
         String username = JwtUtil.extractUsername(token);
         return username;
     }
-}
 
+    public boolean validatePassword(String rawPassword, String encodedPassword) {
+        return passwordEncoder.matches(rawPassword, encodedPassword);
+    }
+}

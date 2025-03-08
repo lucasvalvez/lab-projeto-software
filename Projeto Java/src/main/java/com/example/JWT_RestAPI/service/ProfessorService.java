@@ -1,3 +1,4 @@
-public class Aluno {
+package com.example.JWT_RestAPI.service;
+public class ProfessorService {
     
 }

@@ -1,4 +1,4 @@
-package com.example.JWT_RestAPI.model;
+package com.example.JWT_RestAPI.repository;
 
 public class LoginRequest {
     private String username;
