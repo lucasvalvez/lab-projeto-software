@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Aluno</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Painel do Aluno</h1>
+        </div>
+        <div class="grid">
+            <div class="card" onclick="openModal('horarios')">
+                <h3>Horários das disciplinas</h3>
+                <p>Visualize seus horários de aula</p>
+            </div>
+            <div class="card" onclick="openModal('matricula')">
+                <h3>Gerenciar Matrícula</h3>
+                <p>Gerencie suas matrículas</p>
+            </div>
+            <div class="card" onclick="openModal('notas')">
+                <h3>Ver Notas</h3>
+                <p>Consulte suas notas</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modais -->
+    <div id="horarios-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('horarios')">&times;</span>
+            <h2>Horários das Disciplinas</h2>
+            <div id="horarios-content">
+                <!-- Conteúdo do horário será inserido aqui -->
+            </div>
+        </div>
+    </div>
+
+    <div id="matricula-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('matricula')">&times;</span>
+            <h2>Gerenciar Matrícula</h2>
+            <div id="matricula-content">
+                <!-- Conteúdo da matrícula será inserido aqui -->
+            </div>
+        </div>
+    </div>
+
+    <div id="notas-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('notas')">&times;</span>
+            <h2>Notas</h2>
+            <div id="notas-content">
+                <!-- Conteúdo das notas será inserido aqui -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(type) {
+            document.getElementById(`${type}-modal`).style.display = "block";
+        }
+
+        function closeModal(type) {
+            document.getElementById(`${type}-modal`).style.display = "none";
+        }
+
+        // Fecha o modal quando clicar fora dele
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

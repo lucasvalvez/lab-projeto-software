@@ -22,7 +22,7 @@ async function login(email, password) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('username', data.username);
 
-        window.location.href = `/home.html?role=${data.role}`;
+        window.location.href = `/Projeto%20Java/src/main/resources/static/html/home.html`;
     } catch (error) {
         alert(error.message);
     }
@@ -51,6 +51,31 @@ async function register(name, email, password, role) {
 
         alert('Registration successful! Please login.');
         document.querySelector('[onclick="openTab(event, \'login\')"]').click();
+    } catch (error) {
+        alert(error.message);
+    }
+}
+
+async function auth(token) {
+    try {
+        const response = await fetch(`${API_URL}/auth/${token}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email,
+                password
+            })
+        });
+
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.message || 'Login failed');
+        }
+
+        return data;
     } catch (error) {
         alert(error.message);
     }

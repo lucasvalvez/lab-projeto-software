@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal do Professor</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div id="container">
+        <h1>Portal do Professor</h1>
+        <div class="grid">
+            <div class="card" onclick="openModal('lancar-notas')">
+                <h3>Lançar Notas</h3>
+                <p>Gerenciar notas dos alunos</p>
+            </div>
+            <div class="card" onclick="openModal('frequencia')">
+                <h3>Frequência</h3>
+                <p>Registrar presenças</p>
+            </div>
+            <div class="card" onclick="openModal('plano-aula')">
+                <h3>Plano de Aula</h3>
+                <p>Gerenciar planos</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modais -->
+    <div id="lancar-notas-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Lançar Notas</h2>
+            <select id="turma-select">
+                <option value="">Selecione a turma</option>
+            </select>
+            <table id="notas-alunos-table">
+                <tr>
+                    <th>Aluno</th>
+                    <th>Nota 1</th>
+                    <th>Nota 2</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div id="frequencia-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Frequência</h2>
+            <input type="date" id="data-aula">
+            <table id="frequencia-alunos-table">
+                <tr>
+                    <th>Aluno</th>
+                    <th>Presença</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div id="plano-aula-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Plano de Aula</h2>
+            <form id="plano-aula-form">
+                <textarea placeholder="Conteúdo da aula"></textarea>
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

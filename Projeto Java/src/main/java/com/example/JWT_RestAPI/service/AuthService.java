@@ -1,5 +1,6 @@
 package com.example.JWT_RestAPI.service;
 
+import com.example.JWT_RestAPI.model.Usuario;
 import com.example.JWT_RestAPI.security.JwtUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ public class AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private UsuarioService usuarioService;
     /**
      * Gera um token JWT para o nome de usuário fornecido.
      *
@@ -36,9 +39,9 @@ public class AuthService {
      * @param token O token JWT do qual o nome de usuário será extraído.
      * @return Uma string contendo o nome de usuário extraído do token JWT.
      */
-    public String extractUsername(String token) {
-        String username = JwtUtil.extractUsername(token);
-        return username;
+    public Usuario extractUserData(String token) {
+        String email = JwtUtil.extractUsername(token);
+        return usuarioService.findByEmail(email);
     }
 
     public boolean validatePassword(String rawPassword, String encodedPassword) {

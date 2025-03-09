@@ -12,14 +12,14 @@ public class UsuarioRepository {
     private JdbcTemplate jdbcTemplate;
 
     public Usuario save(Usuario usuario) {
-        String sql = "INSERT INTO usuarios (nome, email, senha, role) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO usuario (nome, email, senha, role) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(sql, usuario.getNome(), usuario.getEmail(), 
                           usuario.getSenha(), usuario.getRole().toString());
         return usuario;
     }
 
     public Usuario findByEmail(String email) {
-        String sql = "SELECT * FROM usuarios WHERE email = ?";
+        String sql = "SELECT * FROM usuario WHERE email = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{email}, 
             (rs, rowNum) -> {
                 Usuario usuario = new Usuario();

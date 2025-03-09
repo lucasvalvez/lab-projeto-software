@@ -16,11 +16,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:8080", "http://127.0.0.1:8083"})
+@CrossOrigin(origins = { "http://localhost:8080", "http://127.0.0.1:8083" })
 public class AuthController {
-        @Autowired
+    @Autowired
     private AuthService authService;
-    
+
     @Autowired
     private UsuarioService usuarioService;
 
@@ -28,22 +28,22 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         try {
             Usuario usuario = usuarioService.findByEmail(request.getEmail());
-            
+
             if (usuario == null) {
                 return ResponseEntity.status(401).body("Usuario nao encontrado");
             }
-            
+
             if (!authService.validatePassword(request.getPassword(), usuario.getSenha())) {
                 return ResponseEntity.status(401).body("Senha incorreta");
             }
-            
+
             String token = authService.generateToken(usuario.getEmail());
-            
+
             Map<String, Object> response = new HashMap<>();
             response.put("token", token);
             response.put("role", usuario.getRole());
             response.put("username", usuario.getNome());
-            
+
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             Map<String, String> error = new HashMap<>();
@@ -61,7 +61,7 @@ public class AuthController {
             usuario.setEmail(request.getEmail());
             usuario.setSenha(request.getPassword());
             usuario.setRole(request.getRole());
-            
+
             Map<String, Object> response = new HashMap<>();
             response.put("message", "User registered successfully");
             usuarioService.save(usuario);
@@ -76,12 +76,10 @@ public class AuthController {
     // No login, capturamos o Username via corpo da requisição (LoginRequest Body)
     // Em seguida, geramos um token JWT
 
-    @GetMapping("/username/{token}")
-    public String extractUsername(@PathVariable String token) {
-        // String username = JwtUtil.extractUsername(token);
-        // Ao invés de chamarmos JwtUtil diretamente, utilizamos a camada de serviço
-        String username = authService.extractUsername(token);
-        return username;
+    @GetMapping("/auth/{token}")
+    public Usuario extractUsername(@PathVariable String token) {
+        Usuario usuario = authService.extractUserData(token);
+        return usuario;
     }
     // No extractUsername, capturamos o token via URL apenas por praticidade
     // (poderia ser via @RequestBody também)
