@@ -39,7 +39,7 @@ async function register(name, email, password, role) {
                 name,
                 email,
                 password,
-                role
+                role    
             })
         });
 

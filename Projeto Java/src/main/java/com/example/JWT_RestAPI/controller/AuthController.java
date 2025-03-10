@@ -16,7 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = { "http://localhost:8080", "http://127.0.0.1:8083" })
+@CrossOrigin(origins = { "http://localhost:8080", "http://127.0.0.1:5500" })
 public class AuthController {
     @Autowired
     private AuthService authService;
