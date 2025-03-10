@@ -63,12 +63,12 @@ public class AuthController {
             usuario.setRole(request.getRole());
 
             Map<String, Object> response = new HashMap<>();
-            response.put("message", "User registered successfully");
+            response.put("message", "Usuario registrado com sucesso");
             usuarioService.save(usuario);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             Map<String, String> error = new HashMap<>();
-            error.put("error", "Registration failed");
+            error.put("error", "Falha ao registrar");
             error.put("message", e.getMessage());
             return ResponseEntity.badRequest().body(error);
         }

@@ -55,10 +55,10 @@ CREATE TABLE public.disciplina (
     id integer NOT NULL,
     codigo character varying(20) NOT NULL,
     nome character varying(100) NOT NULL,
-    creditos integer NOT NULL,
+    carga_horaria integer NOT NULL,
     id_professor integer NOT NULL,
     id_turma integer NOT NULL,
-    CONSTRAINT check_creditos CHECK ((creditos > 0))
+    CONSTRAINT check_carga_horaria CHECK ((carga_horaria > 0))
 );
 
 
@@ -91,11 +91,10 @@ ALTER SEQUENCE public.disciplinas_id_seq OWNED BY public.disciplina.id;
 --
 
 CREATE TABLE public.turma (
-    id integer NOT NULL,
-    name text NOT NULL,
-    max_alunos integer NOT NULL
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    max_alunos INTEGER NOT NULL
 );
-
 
 ALTER TABLE public.turma OWNER TO postgres;
 

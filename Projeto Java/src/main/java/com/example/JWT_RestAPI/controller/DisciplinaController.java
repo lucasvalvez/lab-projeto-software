@@ -51,8 +51,6 @@ public class DisciplinaController {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token inválido ou expirado.");
             }
 
-            // Define o usuário (professor) na disciplina antes de salvar
-            disciplina.setProfessor(usuario);
             disciplinaRepository.save(disciplina);
 
             return ResponseEntity.status(HttpStatus.CREATED).body(disciplina);

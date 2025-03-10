@@ -5,7 +5,6 @@ public class Turma {
     private String name;
     private int maxAlunos;
 
-    // Getters e setters
     public int getId() {
         return id;
     }

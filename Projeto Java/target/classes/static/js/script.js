@@ -46,10 +46,10 @@ async function register(name, email, password, role) {
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error(data.message || 'Registration failed');
+            throw new Error(data.message || 'Falha ao registrar');
         }
 
-        alert('Registration successful! Please login.');
+        alert('Usuario registrado com sucesso');
         document.querySelector('[onclick="openTab(event, \'login\')"]').click();
     } catch (error) {
         alert(error.message);

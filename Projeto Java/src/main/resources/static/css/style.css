@@ -36,7 +36,7 @@ body {
 
 .tablink.active {
     background-color: #007bff;
-    color: white;
+    color: black;
 }
 
 .tabcontent {
@@ -55,9 +55,19 @@ input, select, button {
     padding: 5px;
 }
 
-button {
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
     background-color: #007bff;
     color: white;
+    border-radius: 10px 10px 0 0;
+}
+
+button {
+    background-color: #007bff;
+    color: black;
     border: none;
     cursor: pointer;
 }
@@ -138,6 +148,10 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .header {

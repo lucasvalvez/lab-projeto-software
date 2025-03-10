@@ -7,25 +7,23 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="icon" href="./images/puc.png" type="image/x-icon">
     <script src="./js/script.js" defer></script>
-
 </head>
 
 <body>
     <main>
         <div id="conteiner">
+            <h3 class="header">PUC Minas</h3>
             <div class="tabs">
                 <button class="tablink active" onclick="openTab(event, 'login')">Login</button>
                 <button class="tablink" onclick="openTab(event, 'cadastro')">Cadastro</button>
             </div>
 
-            <!-- Formulário de Login -->
             <div id="login" class="tabcontent">
                 <input id="loginEmail" placeholder="Email" type="email">
                 <input id="loginPassword" placeholder="Senha" type="password">
                 <button onclick="handleLogin()">Entrar</button>
             </div>
 
-            <!-- Formulário de Cadastro -->
             <div id="cadastro" class="tabcontent" style="display: none;">
                 <input id="registerName" placeholder="Nome Completo" type="text">
                 <input id="registerEmail" placeholder="Email" type="email">

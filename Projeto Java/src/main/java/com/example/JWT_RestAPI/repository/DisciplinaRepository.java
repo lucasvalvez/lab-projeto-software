@@ -13,13 +13,6 @@ public class DisciplinaRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public Disciplina save(Disciplina disciplina) {
-        String sql = "INSERT INTO disciplinas (codigo, nome, creditos, id_professor, id_turma) VALUES (?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, disciplina.getCodigo(), disciplina.getNome(), 
-                            disciplina.getCreditos(), disciplina.getProfessor().getId(), disciplina.getTurma().getId());
-        return disciplina;
-    }
-
     public List<Disciplina> findAll() {
         String sql = "SELECT * FROM disciplinas";
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
@@ -34,7 +27,7 @@ public class DisciplinaRepository {
 
     public List<Disciplina> findByUsuario(Long usuarioId) {
         String sql = "SELECT * FROM disciplinas WHERE id_professor = ?";
-        return jdbcTemplate.query(sql, new Object[]{usuarioId}, (rs, rowNum) -> {
+        return jdbcTemplate.query(sql, new Object[] { usuarioId }, (rs, rowNum) -> {
             Disciplina disciplina = new Disciplina();
             disciplina.setId(rs.getInt("id"));
             disciplina.setCodigo(rs.getString("codigo"));
@@ -43,4 +36,15 @@ public class DisciplinaRepository {
             return disciplina;
         });
     }
+
+    public Disciplina save(Disciplina disciplina) {
+        String sql = "INSERT INTO public.disciplina (codigo, nome, creditos, id_professor) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql,
+                disciplina.getCodigo(),
+                disciplina.getNome(),
+                disciplina.getCreditos(),
+                disciplina.getProfessor().getId());
+        return disciplina;
+    }
+
 }

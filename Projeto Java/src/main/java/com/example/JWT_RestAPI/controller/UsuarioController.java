@@ -2,6 +2,9 @@ package com.example.JWT_RestAPI.controller;
 
 import com.example.JWT_RestAPI.model.Usuario;
 import com.example.JWT_RestAPI.service.UsuarioService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +25,16 @@ public class UsuarioController {
         try {
             Usuario usuario = usuarioService.findByEmail(email);
             return ResponseEntity.ok(usuario);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/professores")
+    public ResponseEntity<?> getProfessores() {
+        try {
+            List<Usuario> professores = usuarioService.getProfessores();
+            return ResponseEntity.ok(professores);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
