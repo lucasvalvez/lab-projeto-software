@@ -2,10 +2,17 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "com.puc.backend.application.Main",
+            "projectName": "Exemplo_Arquitetura_Completa"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-JwtRestApiApplication<Exemplo_Arquitetura_Completa>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
-            "mainClass": "com.example.JWT_RestAPI.application.JwtRestApiApplication",
+            "mainClass": "com.puc.JWT_RestAPI.application.JwtRestApiApplication",
             "projectName": "Exemplo_Arquitetura_Completa",
             "args": "",
             "envFile": "${workspaceFolder}/.env"

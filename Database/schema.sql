@@ -1,211 +1,68 @@
---
--- PostgreSQL database dump
---
+CREATE TYPE tipo_usuario AS ENUM ('ALUNO', 'PROFESSOR', 'SECRETARIA');
 
--- Dumped from database version 14.15 (Ubuntu 14.15-0ubuntu0.22.04.1)
--- Dumped by pg_dump version 14.15 (Ubuntu 14.15-0ubuntu0.22.04.1)
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET xmloption = content;
-SET client_min_messages = warning;
-SET row_security = off;
-
-SET default_tablespace = '';
-
-SET default_table_access_method = heap;
-
---
--- Name: aluno_disciplina; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.aluno_disciplina (
-    id_aluno integer,
-    id_disciplina integer,
-    nota double precision,
-    id integer NOT NULL
-);
-
-
-ALTER TABLE public.aluno_disciplina OWNER TO postgres;
-
---
--- Name: aluno_turma; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.aluno_turma (
-    id integer NOT NULL,
-    id_aluno integer NOT NULL,
-    id_turma integer NOT NULL
-);
-
-
-ALTER TABLE public.aluno_turma OWNER TO postgres;
-
---
--- Name: disciplina; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.disciplina (
-    id integer NOT NULL,
-    codigo character varying(20) NOT NULL,
-    nome character varying(100) NOT NULL,
-    carga_horaria integer NOT NULL,
-    id_professor integer NOT NULL,
-    id_turma integer NOT NULL,
-    CONSTRAINT check_carga_horaria CHECK ((carga_horaria > 0))
-);
-
-
-ALTER TABLE public.disciplina OWNER TO postgres;
-
---
--- Name: disciplinas_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public.disciplinas_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.disciplinas_id_seq OWNER TO postgres;
-
---
--- Name: disciplinas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public.disciplinas_id_seq OWNED BY public.disciplina.id;
-
-
---
--- Name: turma; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.turma (
+CREATE TABLE usuario (
     id SERIAL PRIMARY KEY,
-    nome VARCHAR(255) NOT NULL,
-    max_alunos INTEGER NOT NULL
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    tipo tipo_usuario NOT NULL
 );
 
-ALTER TABLE public.turma OWNER TO postgres;
-
---
--- Name: usuario; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.usuario (
-    id integer NOT NULL,
-    nome character varying(100) NOT NULL,
-    email character varying(100) NOT NULL,
-    senha character varying(255) NOT NULL,
-    role character varying(20) NOT NULL
+CREATE TABLE turma (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    ano INTEGER NOT NULL,
+    CHECK (ano >= 2000)
 );
 
+CREATE TABLE disciplina (
+    id SERIAL PRIMARY KEY,
+    codigo VARCHAR(20) NOT NULL UNIQUE,
+    nome VARCHAR(100) NOT NULL,
+    carga_horaria INTEGER NOT NULL CHECK (carga_horaria > 0),
+    id_professor INTEGER NOT NULL REFERENCES usuario(id),
+    id_turma INTEGER NOT NULL REFERENCES turma(id)
+);
 
-ALTER TABLE public.usuario OWNER TO postgres;
+CREATE TABLE matricula (
+    id SERIAL PRIMARY KEY,
+    id_aluno INTEGER NOT NULL REFERENCES usuario(id),
+    id_disciplina INTEGER NOT NULL REFERENCES disciplina(id),
+    nota NUMERIC(4,2) CHECK (nota >= 0 AND nota <= 10),
+    UNIQUE(id_aluno, id_disciplina)
+);
 
---
--- Name: usuarios_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
+-- Instead of CHECK constraints, use triggers to validate user types
+CREATE OR REPLACE FUNCTION check_professor_type()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM usuario 
+        WHERE id = NEW.id_professor AND tipo = 'PROFESSOR'
+    ) THEN
+        RAISE EXCEPTION 'Only professors can be assigned to disciplines';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
-CREATE SEQUENCE public.usuarios_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+CREATE TRIGGER ensure_professor_type
+BEFORE INSERT OR UPDATE ON disciplina
+FOR EACH ROW EXECUTE FUNCTION check_professor_type();
 
+CREATE OR REPLACE FUNCTION check_aluno_type()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM usuario 
+        WHERE id = NEW.id_aluno AND tipo = 'ALUNO'
+    ) THEN
+        RAISE EXCEPTION 'Only students can be enrolled in disciplines';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
-ALTER TABLE public.usuarios_id_seq OWNER TO postgres;
-
---
--- Name: usuarios_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public.usuarios_id_seq OWNED BY public.usuario.id;
-
-
---
--- Name: disciplina id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.disciplina ALTER COLUMN id SET DEFAULT nextval('public.disciplinas_id_seq'::regclass);
-
-
---
--- Name: usuario id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.usuario ALTER COLUMN id SET DEFAULT nextval('public.usuarios_id_seq'::regclass);
-
-
---
--- Name: aluno_disciplina aluno_disciplina_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.aluno_disciplina
-    ADD CONSTRAINT aluno_disciplina_pkey PRIMARY KEY (id);
-
-
---
--- Name: aluno_turma aluno_turma_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.aluno_turma
-    ADD CONSTRAINT aluno_turma_pkey PRIMARY KEY (id);
-
-
---
--- Name: disciplina disciplinas_codigo_key; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.disciplina
-    ADD CONSTRAINT disciplinas_codigo_key UNIQUE (codigo);
-
-
---
--- Name: disciplina disciplinas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.disciplina
-    ADD CONSTRAINT disciplinas_pkey PRIMARY KEY (id);
-
-
---
--- Name: turma turmas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.turma
-    ADD CONSTRAINT turmas_pkey PRIMARY KEY (id);
-
-
---
--- Name: usuario usuarios_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.usuario
-    ADD CONSTRAINT usuarios_email_key UNIQUE (email);
-
-
---
--- Name: usuario usuarios_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.usuario
-    ADD CONSTRAINT usuarios_pkey PRIMARY KEY (id);
-
-
---
--- PostgreSQL database dump complete
---
-
+CREATE TRIGGER ensure_aluno_type
+BEFORE INSERT OR UPDATE ON matricula
+FOR EACH ROW EXECUTE FUNCTION check_aluno_type();

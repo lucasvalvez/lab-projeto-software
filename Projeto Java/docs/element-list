@@ -1,6 +1,6 @@
-com.example.JWT_RestAPI.application
-com.example.JWT_RestAPI.config
-com.example.JWT_RestAPI.controller
-com.example.JWT_RestAPI.model
-com.example.JWT_RestAPI.security
-com.example.JWT_RestAPI.service
+com.puc.JWT_RestAPI.application
+com.puc.JWT_RestAPI.config
+com.puc.JWT_RestAPI.controller
+com.puc.JWT_RestAPI.model
+com.puc.JWT_RestAPI.security
+com.puc.JWT_RestAPI.service
