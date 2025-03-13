@@ -12,7 +12,7 @@ import com.puc.backend.model.Usuario.TipoUsuario;
 import com.puc.backend.service.UsuarioService;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:8080", "http://127.0.0.1:8080"})
+@CrossOrigin(origins = {"http://localhost:8080","http://127.0.0.1:5500", "http://127.0.0.1:8080"})
 @RequestMapping("/api/usuarios")
 public class UsuarioController {
     
@@ -80,5 +80,34 @@ public class UsuarioController {
     @GetMapping("/professores")
     public ResponseEntity<List<Usuario>> getProfessores() {
         return ResponseEntity.ok(usuarioService.getProfessores());
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody Map<String, String> loginData) {
+        try {
+            String email = loginData.get("email");
+            String password = loginData.get("password");
+            Usuario usuario = usuarioService.login(email, password);
+            return ResponseEntity.ok(usuario);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody String name, @RequestBody String email, @RequestBody String password, @RequestBody String role) {
+        System.out.println("tudo okei");
+        Usuario usuario = new Usuario();
+        usuario.setEmail(email);
+        usuario.setNome(name);
+        usuario.setTipo(role.equals("ALUNO") ? TipoUsuario.ALUNO : role.equals("PROFESSOR") ? TipoUsuario.PROFESSOR : TipoUsuario.SECRETARIA);
+        usuario.setSenha(password);
+
+        try {
+            Usuario saved = usuarioService.save(usuario);
+            return ResponseEntity.ok(saved);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
     }
 }

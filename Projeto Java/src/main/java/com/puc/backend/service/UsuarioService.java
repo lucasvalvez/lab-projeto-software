@@ -55,4 +55,14 @@ public class UsuarioService {
     public boolean existsByEmail(String email) {
         return usuarioRepository.existsByEmail(email);
     }
+
+    public Usuario login(String email, String password) {
+        Usuario usuario = usuarioRepository.findByEmail(email);
+        if (usuario == null || !passwordEncoder.matches(password, usuario.getSenha())) {
+            throw new RuntimeException("Email ou senha inválidos");
+        }
+        // Gerar token de autenticação (simulação)
+        usuario.setToken("token-simulacao");
+        return usuario;
+    }
 }

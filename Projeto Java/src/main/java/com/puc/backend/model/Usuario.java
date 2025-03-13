@@ -6,6 +6,7 @@ public class Usuario {
     private String email;
     private String senha;
     private TipoUsuario tipo;
+    private String token;
 
     public enum TipoUsuario {
         ALUNO, PROFESSOR, SECRETARIA
@@ -21,4 +22,6 @@ public class Usuario {
     public void setSenha(String senha) { this.senha = senha; }
     public TipoUsuario getTipo() { return tipo; }
     public void setTipo(TipoUsuario tipo) { this.tipo = tipo; }
+    public String getToken() { return token; }
+    public void setToken(String token) { this.token = token; }
 }

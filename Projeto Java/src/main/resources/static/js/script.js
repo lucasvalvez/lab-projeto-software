@@ -2,7 +2,7 @@ const API_URL = 'http://localhost:8080';
 
 async function login(email, password) {
     try {
-        const response = await fetch(`${API_URL}/login`, {
+        const response = await fetch(`${API_URL}/api/usuarios/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -22,15 +22,16 @@ async function login(email, password) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('username', data.username);
 
-        window.location.href = `/Projeto%20Java/src/main/resources/static/html/home.html`;
+        window.location.href = `./html/home.html`;
     } catch (error) {
         alert(error.message);
     }
 }
 
 async function register(name, email, password, role) {
+    alert('a');
     try {
-        const response = await fetch(`${API_URL}/register`, {
+        const response = await fetch(`${API_URL}/api/usuarios/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -58,7 +59,7 @@ async function register(name, email, password, role) {
 
 async function auth(token) {
     try {
-        const response = await fetch(`${API_URL}/auth/${token}`, {
+        const response = await fetch(`${API_URL}/api/usuarios/auth/${token}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

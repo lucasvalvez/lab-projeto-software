@@ -43,6 +43,8 @@ public class MatriculaService {
         Matricula matricula = new Matricula();
         matricula.setAlunoId(alunoId);
         matricula.setDisciplinaId(disciplinaId);
+
+
         
         return matriculaRepository.save(matricula);
     }
