@@ -12,7 +12,7 @@
 
 Essa seção é sobre os casos de uso para o nosso projeto de software. O diagrama abaixo é uma representação visual da interação dos usuários e o sistema.
 
-![Use Case Diagram](Diagramas/DIAGRAMADECASODEUSO (Community).jpg)
+![Use Case Diagram](Diagramas/DIAGRAMADECASODEUSO(Community).jpg)
 
 **Link do figma:** [DIAGRAMA DE CASO DE USO (Community)](https://www.figma.com/board/nLkF5mfcgLg6DXYjvv8cnJ/DIAGRAMA-DE-CASO-DE-USO-(Community)?node-id=0-1&t=Y1RtcApUaqqaA5gn-1)
 
