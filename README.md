@@ -20,3 +20,7 @@ Essa seção é sobre os casos de uso para o nosso projeto de software. O diagra
 
 ---
 **Link do diagrama** [DIAGRAMA DE CLASSE](https://lucid.app/lucidchart/445d1b57-98ce-47bc-ae0f-e89a7a673b26/edit?viewport_loc=-750%2C401%2C4220%2C2775%2CHWEp-vi-RSFO&invitationId=inv_57224a07-8fd3-4c20-8f15-155c3a24449a)
+
+## Apresentação
+
+[ApresentaçãoMatrículas](Diagramas/ApresentaçãoMatrículas.pdf)
