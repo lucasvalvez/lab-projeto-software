@@ -1,45 +1,27 @@
-# Laboratório de Projeto de Software - Turma 01/2025
+# 🎓 Laboratório de Projeto de Software - Turma 01/2025
 
-## Participantes
+## 👥 Participantes
 
 - [@netodotcom](https://github.com/netodotcom) - João Luiz Neto Silveira
 - [@lucasvalvez](https://github.com/lucasvalvez) - Lucas Valente Alves
 - [@GuilhermeH-R](https://github.com/GuilhermeH-R) - Guilherme Rodrigues
 
-## Casos de Uso
+## 📚 Organização dos Laboratórios
 
----
+### 📋 LAB 1 - Sistema de Matrículas
 
-Essa seção é sobre os casos de uso para o nosso projeto de software. O diagrama abaixo é uma representação visual da interação dos usuários e o sistema.
+- 📄 [Enunciado do Projeto](LAB%201/Sistema%20de%20Matrículas.pdf)
+- 📝 [Histórias de Usuário](LAB%201/Historias-de-Usuario.MD)
+- 📊 Diagramas: `LAB 1/Diagramas/`
+  - 🔄 Diagrama de Caso de Uso
+  - 📑 Diagrama de Classes
+  - 🎯 Apresentação de Matrículas
+- 💻 Projeto Java
 
-![Use Case Diagram](<Diagramas/DIAGRAMADECASODEUSO(Community).jpg>)
+### 🚗 LAB 2 - Sistema de Aluguel de Carros
 
-**Link do figma:** [DIAGRAMA DE CASO DE USO (Community)](<https://www.figma.com/board/nLkF5mfcgLg6DXYjvv8cnJ/DIAGRAMA-DE-CASO-DE-USO-(Community)?node-id=0-1&t=Y1RtcApUaqqaA5gn-1>)
-
-## Diagrama de Classes
-
----
-
-**Link do diagrama** [DIAGRAMA DE CLASSE](https://lucid.app/lucidchart/445d1b57-98ce-47bc-ae0f-e89a7a673b26/edit?viewport_loc=-750%2C401%2C4220%2C2775%2CHWEp-vi-RSFO&invitationId=inv_57224a07-8fd3-4c20-8f15-155c3a24449a)
-
-## Apresentação
-
-[ApresentaçãoMatrículas](Diagramas/ApresentaçãoMatrículas.pdf)
-
-## Organização dos Laboratórios
-
-### LAB 1
-
-- Histórias de Usuário: `LAB 1/Historias-de-Usuario.MD`
-- Diagramas: `LAB 1/Diagramas/`
-  - Diagrama de Caso de Uso
-  - Diagrama de Classes
-  - Apresentação de Matrículas
-- Projeto Java
-
-### LAB 2
-
-- Histórias de Usuário: `LAB 2/Historias-de-Usuario.MD`
-- Diagramas: `LAB 2/Diagramas/`
-  - vazio
-- Projeto Java
+- 📄 [Enunciado do Projeto](LAB%202/Sistema%20de%20Aluguel%20de%20Carros.pdf)
+- 📝 [Histórias de Usuário](LAB%202/Historias-de-Usuario.MD)
+- 📊 Diagramas: `LAB 2/Diagramas/`
+  - ⏳ Em desenvolvimento
+- 💻 Projeto Java
