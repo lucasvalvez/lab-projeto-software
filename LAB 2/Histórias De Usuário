@@ -1,0 +1,61 @@
+# Histórias de Usuário - Sistema de Aluguel de Carros
+
+## 1. Cadastro de Cliente  
+**Como** um cliente,  
+**Quero** me cadastrar no sistema informando meus dados pessoais,  
+**Para que** eu possa acessar as funcionalidades de aluguel de carros.
+
+### Critérios de Aceitação:
+- O cliente deve fornecer nome, CPF, RG, endereço e profissão.
+- Deve ser possível cadastrar até três fontes de rendimento.
+- O sistema deve validar se o CPF já está cadastrado.
+- Após o cadastro, o cliente deve receber um e-mail de confirmação.
+
+---
+
+## 2. Criação de Pedido de Aluguel  
+**Como** um cliente,  
+**Quero** criar um pedido de aluguel de um carro,  
+**Para que** eu possa alugar um veículo conforme minha necessidade.
+
+### Critérios de Aceitação:
+- O cliente deve selecionar um veículo disponível.
+- O sistema deve permitir a escolha do período de aluguel.
+- O pedido deve ser registrado com status "Em análise financeira".
+- O cliente deve receber uma notificação confirmando a criação do pedido.
+
+---
+
+## 3. Avaliação Financeira de Pedido  
+**Como** um agente de banco,  
+**Quero** avaliar a situação financeira do cliente,  
+**Para que** eu possa aprovar ou rejeitar seu pedido de aluguel.
+
+### Critérios de Aceitação:
+- O agente deve visualizar os dados do cliente e suas fontes de renda.
+- O agente pode aprovar ou rejeitar o pedido com base nos critérios financeiros.
+- O sistema deve registrar a decisão e informar o cliente.
+
+---
+
+## 4. Cancelamento de Pedido  
+**Como** um cliente,  
+**Quero** cancelar um pedido de aluguel antes da aprovação,  
+**Para que** eu não fique comprometido com um contrato que não desejo mais.
+
+### Critérios de Aceitação:
+- O cliente pode cancelar um pedido enquanto ele estiver "Em análise financeira".
+- O sistema deve impedir o cancelamento de pedidos já aprovados.
+- O cliente deve receber uma notificação confirmando o cancelamento.
+
+---
+
+## 5. Registro de Propriedade de Veículo  
+**Como** um sistema,  
+**Quero** registrar a propriedade do veículo no contrato,  
+**Para que** seja possível identificar o responsável pelo carro alugado.
+
+### Critérios de Aceitação:
+- O veículo pode ser registrado como propriedade do cliente, de uma empresa ou de um banco.
+- O contrato de aluguel deve incluir essa informação.
+- O sistema deve permitir a consulta da propriedade do veículo.
