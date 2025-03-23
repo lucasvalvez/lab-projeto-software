@@ -23,5 +23,4 @@
 - 📄 [Enunciado do Projeto](LAB%202/Sistema%20de%20Aluguel%20de%20Carros.pdf)
 - 📝 [Histórias de Usuário](LAB%202/Historias-de-Usuario.MD)
 - 📊 [Diagramas](LAB%202/Diagramas)
-  - ⏳ Em desenvolvimento
 - 💻 Projeto Java
