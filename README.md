@@ -21,6 +21,6 @@
 ### 🚗 LAB 2 - Sistema de Aluguel de Carros
 
 - 📄 [Enunciado do Projeto](LAB%202/Sistema%20de%20Aluguel%20de%20Carros.pdf)
-- 📝 [Histórias de Usuário](LAB%202/Historias-de-Usuario.MD)
+- 📝 [Histórias de Usuário](LAB%202/Hist%C3%B3rias%20De%20Usu%C3%A1rio)
 - 📊 [Diagramas](LAB%202/Diagramas)
 - 💻 Projeto Java
