@@ -1,0 +1,6 @@
+com.puc.JWT_RestAPI.application
+com.puc.JWT_RestAPI.config
+com.puc.JWT_RestAPI.controller
+com.puc.JWT_RestAPI.model
+com.puc.JWT_RestAPI.security
+com.puc.JWT_RestAPI.service
